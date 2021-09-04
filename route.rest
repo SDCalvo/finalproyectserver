@@ -1,0 +1,38 @@
+
+POST http://localhost:5000/recipes
+Content-Type: application/json
+
+{
+    "title": "recipe 1",
+    "img": "img",
+    "ingredients": [ "ingredient 1", "ingredient 2" ],
+    "category": "Con carne",
+    "time":"20 minutos",
+    "likes": 12,
+    "steps": [ "step 1", "step 2" ],
+    "size": "5L"
+}
+
+###
+
+GET http://localhost:5000/recipes
+
+###
+
+DELETE http://localhost:5000/recipes/6133b9eb93d6f65b378a1729
+
+###
+
+PATCH http://localhost:5000/recipes/6133b99548c045196e1de803
+Content-Type: application/json
+
+{
+    "title": "recipe 2",
+    "img": "img",
+    "ingredients": [ "ingredient 1", "ingredient 2" ],
+    "category": "Con carne",
+    "time":"20 minutos",
+    "likes": 12,
+    "steps": [ "step 1", "step 2" ],
+    "size": "5L"
+}
