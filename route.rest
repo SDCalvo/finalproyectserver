@@ -19,11 +19,17 @@ GET http://localhost:5000/recipes
 
 ###
 
+GET http://localhost:5000/recipes/6133b99548c045196e1de803
+
+###
+
 DELETE http://localhost:5000/recipes/6133b9eb93d6f65b378a1729
 
 ###
 
 PATCH http://localhost:5000/recipes/6133b99548c045196e1de803
+
+
 Content-Type: application/json
 
 {
