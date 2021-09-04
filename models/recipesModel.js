@@ -24,11 +24,8 @@ const recipeSchema = new mongoose.Schema({
         }
     },
     tags: {
-        type: String,
-        required: false,
-        enum: {
-            values: ['Entrada', 'Plato principal', 'Dulce', 'Ensalada', 'Sopa', 'Tarta', 'Vegano', 'Rapido', 'Picante', 'sin TAAC', 'Desayuno', 'Salsa', 'Snack']
-        }
+        type: Array,
+        required: true,
     },
     time: {
         type: String,
