@@ -6,6 +6,9 @@ const recipeCtrl = require('../controllers/recipesController.js');
 //Getting all the data from the database
 router.get('/', recipeCtrl.getAllRecipe);
 
+//Getting recipes from a search
+router.get('/search', recipeCtrl.getRecipesBySearch);
+
 //Getting one element from the database
 router.get('/:id', getRecipe, recipeCtrl.getOneRecipe);
 

@@ -3,14 +3,16 @@ POST http://localhost:5000/recipes
 Content-Type: application/json
 
 {
-    "title": "recipe 1",
+    "title": "recipe 7",
     "img": "img",
-    "ingredients": [ "ingredient 1", "ingredient 2" ],
+    "ingredients": [ "ingredient 2", "ingredient 4" ],
     "category": "Con carne",
     "time":"20 minutos",
     "likes": 12,
     "steps": [ "step 1", "step 2" ],
-    "size": "5L"
+    "timeFridge": "20 minutos",
+    "timeFreezer": "20 minutos",
+    "tags": [ "tag 9", "tag 8" ]
 }
 
 ###
@@ -23,7 +25,7 @@ GET http://localhost:5000/recipes/6133b99548c045196e1de803
 
 ###
 
-DELETE http://localhost:5000/recipes/6133b9eb93d6f65b378a1729
+DELETE http://localhost:5000/recipes/6137eb5d2ddbc608da310ed7
 
 ###
 
@@ -40,5 +42,8 @@ Content-Type: application/json
     "time":"20 minutos",
     "likes": 12,
     "steps": [ "step 1", "step 2" ],
-    "size": "5L"
 }
+
+###
+
+GET http://localhost:5000/recipes/search?search=1&search=3&field=tags

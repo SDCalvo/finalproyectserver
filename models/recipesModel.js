@@ -4,7 +4,8 @@ const recipeSchema = new mongoose.Schema({
 
     title:{
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     img:{
         type: String,
@@ -42,8 +43,29 @@ const recipeSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-    }
+    },
+    timeFridge: {
+        type: String,
+        required: true,
+    },
+    timeFreezer: {
+        type: String,
+        required: true,
+    },
 
 } , { timestamps: true, autoCreate: true });
+
+//add text index to search all string fields
+recipeSchema.index({
+    title: 'text',
+    ingredients: 'text',
+    steps: 'text',
+    time: 'text',
+    timeFridge: 'text',
+    timeFreezer: 'text',
+    tags: 'text',
+    category: 'text',
+});
+
 
 module.exports = mongoose.model('Recipe', recipeSchema);  
