@@ -26,16 +26,16 @@ async function getRecipesBySearch(req, res) {
     try{
         const field = req.query.field;
         let search = req.query.search;
-        console.log(field)
+        
         if(field===undefined){
+            //search for all the values in every field
             if(Array.isArray(search)){
                 search = search.join(' ');
             }
             const recipes = await recipe.find({$text: {$search: search}});
             res.json(recipes);
         }else{
-            console.log(search);
-            console.log(field);
+            //search for all the values in the field provided
             if(!Array.isArray(search)){
                 search = [search];
             }
