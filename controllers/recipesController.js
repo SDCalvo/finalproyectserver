@@ -26,7 +26,6 @@ async function getRecipesBySearch(req, res) {
     try{
         const field = req.query.field;
         let search = req.query.search;
-        
         if(field===undefined){
             //search for all the values in every field
             if(Array.isArray(search)){
@@ -91,7 +90,7 @@ async function updateRecipe(req, res) {
         rcp.user = req.body.user;
         rcp.timeFreezer = req.body.timeFreezer;
         rcp.timeFridge = req.body.timeFridge;
-        
+        console.log(rcp);
         try{
             const newRecipe = await rcp.save();
             res.status(201).json(newRecipe);
