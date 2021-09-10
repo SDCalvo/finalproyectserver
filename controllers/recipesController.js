@@ -17,7 +17,7 @@ async function getOneRecipe(req, res) {
 
 async function getRecipesBySearch(req, res) {
     /*
-        this function accepts an optional field value
+        This function accepts an optional field value
         if the field value is provided, it will search for all the values 
         provided in the field provided
         if the field value is not provided, it will search for all

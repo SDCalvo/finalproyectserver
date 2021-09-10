@@ -16,6 +16,8 @@ app.use(cors());
 const recipesRouter = require('./routes/recipes.js');
 app.use('/recipes', recipesRouter);
 
+const tagsRouter = require('./routes/tags.js');
+app.use('/tags', tagsRouter);
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Server listening on port ${process.env.PORT || 3000}`);

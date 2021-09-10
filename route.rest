@@ -21,11 +21,11 @@ GET http://localhost:5000/recipes
 
 ###
 
-GET http://localhost:5000/recipes/6138183a56a45cec0353bcc3
+GET http://localhost:5000/recipes/61381c56900dc801dc66035d
 
 ###
 
-DELETE http://localhost:5000/recipes/6138183a56a45cec0353bcc3
+DELETE http://localhost:5000/recipes/61381c56900dc801dc66035d
 
 ###
 
@@ -48,3 +48,7 @@ Content-Type: application/json
 ###
 
 GET http://localhost:5000/recipes/search?search=tag+1&searh=tag+2&field=tags
+
+###
+
+GET http://localhost:5000/tags
