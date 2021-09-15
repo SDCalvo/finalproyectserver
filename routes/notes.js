@@ -2,21 +2,22 @@ const express = require('express');
 const router = express.Router();
 const note = require('../models/notesModel.js');
 const noteCtrl = require('../controllers/notesController.js');
+const auth = require('../middlewares/middlewares');
 
 //Getting all the notes from a user
-router.get('/:id', noteCtrl.getAllNotesFromUser);
+router.get('/all/:id', auth.authenticateToken, noteCtrl.getAllNotesFromUser);
 
 //Getting one note from DB
-router.get('/:id', getNote, noteCtrl.getOneNote);
+router.get('/:id', getNote, auth.authenticateToken, noteCtrl.getOneNote); //revisa, la ruta es igual a la anterior
 
 //Creating a new element in the database
-router.post('/', noteCtrl.createNote);
+router.post('/',auth.authenticateToken, noteCtrl.createNote);
 
 //Updating an existing element in the database
-router.patch('/:id', getNote, noteCtrl.updateNote);
+router.patch('/:id', getNote, auth.authenticateToken, noteCtrl.updateNote);
 
 //Deleting an existing element in the database
-router.delete('/:id', getNote, noteCtrl.deleteNote);
+router.delete('/:id', getNote, auth.authenticateToken, noteCtrl.deleteNote);
 
 //Middleware for getting the id of a recipe
 async function getNote(req, res, next) {

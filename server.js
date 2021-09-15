@@ -19,6 +19,12 @@ app.use('/recipes', recipesRouter);
 const tagsRouter = require('./routes/tags.js');
 app.use('/tags', tagsRouter);
 
+const userRouter = require('./routes/user.js');
+app.use('/user', userRouter);
+
+const notesRouter = require('./routes/notes.js');
+app.use('/notes', notesRouter);
+
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Server listening on port ${process.env.PORT || 3000}`);
 });

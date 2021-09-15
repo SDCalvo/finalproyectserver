@@ -4,11 +4,13 @@ const userSchema = new mongoose.Schema({
 
     name: {
         type: String,
-        required: true
+        required: true,
+        default: null
     },
     lastName: {
         type: String,
-        required: true
+        required: true,
+        default: null
     },
     email: {
         type: String,
@@ -18,6 +20,11 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    role: {
+        type: String,
+        required: true,
+        enum: ['admin', 'user']
     },
     myRecipes: [{
         type: mongoose.Schema.Types.ObjectId,
