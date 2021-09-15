@@ -1,4 +1,5 @@
 const userModel = require('../models/userModel.js');
+const recipeModel = require('../models/recipesModel.js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -121,8 +122,72 @@ async function login(req, res){
         console.log("Error: ", err);
         res.status(500).send(err);
     }
-} 
+}
+
+//add a recipe to users favorites
+async function addRecipeToFavorites(req, res){
+    
+    const {recipeId, userId} = req.body;
+    if(!recipeId) {
+        return res.status(400).send({
+            message: 'El ID de la receta es requerido'
+        });
+    }
+    if(!userId) {
+        return res.status(400).send({
+            message: 'El ID del usuario es requerido'
+        });
+    }
+    try{
+        const user = await userModel.findOne({
+            where: {
+                _id: userId
+            }
+        });
+        if(!user) {
+            return res.status(401).send({
+                message: 'Usuario no encontrado'
+            });
+        }
+        const recipe = await recipeModel.findOne({
+            where: {
+                _id: recipeId
+            }
+        });
+        if(!recipe) {
+            return res.status(401).send({
+                message: 'Receta no encontrada'
+            });
+        }
+        const thisUser = await userModel.findOne({
+            where: {
+                _id: userId
+            }
+        });
+
+        //check if user already has this recipe in favorites
+        const recipeAlreadyInFavorites = thisUser.myFavorites.filter(fav => fav.recipeId === recipeId);
+        console.log(recipeAlreadyInFavorites);
+        if(recipeAlreadyInFavorites.length > 0) {
+            return res.status(400).send({
+                message: 'Receta ya esta en favoritos'
+            });
+        }
+        //add recipe to user's favorites
+        thisUser.myFavorites.push(recipe);
+        await thisUser.save();
+        res.status(200).send({
+            message: 'Receta agregada a favoritos'
+        });
+    }
+    catch(err){
+        console.log("Error: ", err);
+        res.status(500).send(err);
+    }
+}
+
 
 exports.createUser = createUser;
 exports.login = login;
+exports.addRecipeToFavorites = addRecipeToFavorites;
 
