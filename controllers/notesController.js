@@ -4,10 +4,11 @@ const userModel = require('../models/userModel.js');
     
 async function getAllNotesFromUser(req, res) {
     
-    const user = req.params.user;
+    const user = req.params.userid;
     try{
+        console.log(user);
         const notes = await note.find({user: user});
-        res.json(notes);
+        res.status(200).json(notes);
     }catch(err){
         res.status(500).json({message: err.message});
     }
@@ -41,7 +42,7 @@ async function createNote(req, res) {
 
             const newNote = await nt.save();
             res.status(201).json(newNote);
-            
+
         } catch(err){
             res.status(400).json({message: err.message});
         }    

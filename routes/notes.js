@@ -5,7 +5,7 @@ const noteCtrl = require('../controllers/notesController.js');
 const auth = require('../middlewares/middlewares');
 
 //Getting all the notes from a user
-router.get('/all/:id', auth.authenticateToken, noteCtrl.getAllNotesFromUser);
+router.get('/all/:userid', auth.authenticateToken, noteCtrl.getAllNotesFromUser);
 
 //Getting one note from DB
 router.get('/:id', getNote, auth.authenticateToken, noteCtrl.getOneNote);
