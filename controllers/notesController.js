@@ -1,4 +1,6 @@
 const note = require('../models/notesModel.js');
+const userModel = require('../models/userModel.js');
+
     
 async function getAllNotesFromUser(req, res) {
     
@@ -24,9 +26,22 @@ async function createNote(req, res) {
             user: req.body.user,
             recipe: req.body.recipe
         });
+
         try{
+            const thisUser = await userModel.findOne({username: req.body.user});
+            
+            if(!thisUser){
+                res.status(404).json({message: 'User not found'});
+                return;
+            }
+
+            //update user's notes
+            thisUser.notes.push(nt);
+            await thisUser.save();
+
             const newNote = await nt.save();
             res.status(201).json(newNote);
+            
         } catch(err){
             res.status(400).json({message: err.message});
         }    

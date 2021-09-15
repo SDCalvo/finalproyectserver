@@ -92,7 +92,7 @@ async function login(req, res){
 
         if(!user) {
             return res.status(401).send({
-                message: 'Usuario no encontrado'
+                message: 'Usuario o contraseña incorrectos  '
             });
         }
 

@@ -8,7 +8,7 @@ const auth = require('../middlewares/middlewares');
 router.get('/all/:id', auth.authenticateToken, noteCtrl.getAllNotesFromUser);
 
 //Getting one note from DB
-router.get('/:id', getNote, auth.authenticateToken, noteCtrl.getOneNote); //revisa, la ruta es igual a la anterior
+router.get('/:id', getNote, auth.authenticateToken, noteCtrl.getOneNote);
 
 //Creating a new element in the database
 router.post('/',auth.authenticateToken, noteCtrl.createNote);
