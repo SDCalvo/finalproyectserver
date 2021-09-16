@@ -116,6 +116,10 @@ async function login(req, res){
             ...user._doc,
             token: token
         };
+        
+        //delete password from user
+        delete loggedUser.password;
+
         res.status(200).send(loggedUser);
     }
     catch(err){
