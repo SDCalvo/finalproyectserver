@@ -7,6 +7,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         default: null
     },
+    avatar:{
+        type: String,
+        required: true,
+    },
     lastName: {
         type: String,
         required: true,

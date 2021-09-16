@@ -46,11 +46,9 @@ const recipeSchema = new mongoose.Schema({
     },
     timeFridge: {
         type: String,
-        required: true,
     },
     timeFreezer: {
         type: String,
-        required: true,
     },
 
 } , { timestamps: true, autoCreate: true });
