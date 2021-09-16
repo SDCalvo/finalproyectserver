@@ -12,6 +12,8 @@ router.get('/search', recipeCtrl.getRecipesBySearch);
 //Getting one element from the database
 router.get('/:id', getRecipe, recipeCtrl.getOneRecipe);
 
+
+//add middleware for auth in create, patch and delete, make sure recipe model has user as required and modify all other functions accordingly
 //Creating a new element in the database
 router.post('/', recipeCtrl.createRecipe);
 

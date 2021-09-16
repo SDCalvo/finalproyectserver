@@ -47,7 +47,6 @@ async function getRecipesBySearch(req, res) {
     }catch(err){
         res.status(500).json({message: err.message});
     }
-    
 }
 
 async function createRecipe(req, res) {

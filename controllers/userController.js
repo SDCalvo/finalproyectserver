@@ -93,7 +93,7 @@ async function login(req, res){
 
         if(!user) {
             return res.status(401).send({
-                message: 'Usuario o contraseña incorrectos  '
+                message: 'Usuario o contraseña incorrectos'
             });
         }
 
@@ -166,7 +166,10 @@ async function addRecipeToFavorites(req, res){
         });
 
         //check if user already has this recipe in favorites
-        const recipeAlreadyInFavorites = thisUser.myFavorites.filter(fav => fav.recipeId === recipeId);
+        const recipeAlreadyInFavorites = thisUser.myFavorites.filter(fav => {
+            console.log("tu", thisUser)
+            const favId = fav.toString();
+            return favId === recipeId});
         console.log(recipeAlreadyInFavorites);
         if(recipeAlreadyInFavorites.length > 0) {
             return res.status(400).send({
