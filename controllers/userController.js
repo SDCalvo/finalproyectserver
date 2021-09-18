@@ -13,6 +13,32 @@ async function getUsers(req, res){
     }
 }
 
+//get user by id
+async function getUserById(req, res){
+    try{
+        const user = await userModel.findById(req.params.id);
+        if(!user) {
+            res.json({message: 'Usuario no encontrado'});
+        }
+        res.json(user);
+    }catch(err){
+        res.json({message: err});
+    }
+}
+
+//delete user
+async function deleteUser(req, res){
+    try{
+        const user = await userModel.findByIdAndDelete(req.params.id);
+        if(!user) {
+            res.json({message: 'Usuario no encontrado'});
+        }
+        res.json({message: 'Usuario eliminado'});
+    }catch(err){
+        res.json({message: err});
+    }
+}
+
 //create a user 
 async function createUser(req, res) {
 
@@ -266,6 +292,8 @@ async function likeRecipe(req, res){
 
 
 exports.getUsers = getUsers;
+exports.getUserById = getUserById;
+exports.deleteUser = deleteUser;
 exports.createUser = createUser;
 exports.login = login;
 exports.addRecipeToFavorites = addRecipeToFavorites;
