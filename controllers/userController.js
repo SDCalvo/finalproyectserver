@@ -76,14 +76,10 @@ async function createUser(req, res) {
     }
 
     try{
-        //make sure user doesn't already exist
-        const oldUser = await userModel.findOne({
-            where: {
-                email
-            }
-        });
-        
-        if(oldUser) {
+        //make sure user doesn't already exist, search exact email
+        const oldUser = await userModel.find({ email: email });
+        console.log("oldUser: ", oldUser);
+        if(oldUser.length > 0) {
             return res.status(400).send({
                 message: 'El usuario ya existe'
             });

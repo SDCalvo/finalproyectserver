@@ -3,17 +3,17 @@ POST https://polar-reaches-30197.herokuapp.com/recipes
 Content-Type: application/json
 
 {
-    "title": "recipe 1",
-    "img": "img22",
+    "title": "recipe 5",
+    "img": "img112",
     "user": "6141811deeaa40803222901f",
-    "ingredients": [ "ingredient 2", "ingredient 4" ],
-    "category": "Con carne",
-    "time":"15 minutos",
-    "likes": 12,
-    "steps": [ "step 1", "step 2" ],
-    "timeFridge": "20 minutos",
-    "timeFreezer": "20 minutos",
-    "tags": [ "tag 1", "tag 2" ]
+    "ingredients": [ "ingredient 1", "ingredient 3", "ingredient 4" ],
+    "category": "Veggies",
+    "time":"23 minutos",
+    "likes": 0,
+    "steps": [ "step 1", "step 2", "step 3" ],
+    "timeFridge": "2 dias",
+    "timeFreezer": "5 dias",
+    "tags": [ "tag 1", "tag 2", "tag 3" ]
 }
 
 ###
@@ -57,14 +57,14 @@ GET http://localhost:5000/tags
 
 ###
 
-POST https://polar-reaches-30197.herokuapp.com/user
+POST http://localhost:5000/user
 Content-Type: application/json
 
 {
-    "name" : "Santiago",
-    "lastName": "Calvo",
-    "email": "santiago.d.calvo@gmail.com",
-    "password": "12345678",
+    "name" : "Loli",
+    "lastName": "Avila",
+    "email": "loli@gmail.com",
+    "password": "loli",
     "role": "admin"
 }
 
@@ -149,5 +149,11 @@ x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4MTFkZWVhYTQ
 ###
 
 GET http://localhost:5000/user/51422ef3257c69006799ed27
+Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4MTFkZWVhYTQwODAzMjIyOTAxZiIsImlhdCI6MTYzMTY4OTMwMywiZXhwIjoxNjMxNzc1NzAzfQ.zYvdpjTq4wJrul5dPEKP43Hrd35JsJYjpNWhfLcj4BQ
+
+###
+
+GET http://localhost:5000/user/61422ef3257c69006799ed27
 Content-Type: application/json
 x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4MTFkZWVhYTQwODAzMjIyOTAxZiIsImlhdCI6MTYzMTY4OTMwMywiZXhwIjoxNjMxNzc1NzAzfQ.zYvdpjTq4wJrul5dPEKP43Hrd35JsJYjpNWhfLcj4BQ
