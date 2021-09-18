@@ -116,19 +116,15 @@ async function login(req, res){
     }
 
     try{
-        const user = await userModel.findOne({
-            where: {
-                email
-            }
-        });
-
+        const user = await userModel.find({ email: email });
+        console.log("user:: ", user);
         if(!user) {
             return res.status(401).send({
                 message: 'Usuario o contraseña incorrectos'
             });
         }
-
-        const isValidPassword = await bcrypt.compare(password, user.password);
+        console.log("password: ", user.password);
+        const isValidPassword = await bcrypt.compare(password, user[0].password);
 
         if(!isValidPassword) {
             return res.status(401).send({
@@ -175,49 +171,39 @@ async function addRecipeToFavorites(req, res){
         });
     }
     try{
-        const user = await userModel.findOne({
-            where: {
-                _id: userId
-            }
-        });
-        if(!user) {
+        const user = await userModel.find({ _id: userId });
+        if(user.length === 0) {
             return res.status(401).send({
                 message: 'Usuario no encontrado'
             });
         }
-        const recipe = await recipeModel.findOne({
-            where: {
-                _id: recipeId
-            }
-        });
-        if(!recipe) {
+        const recipe = await recipeModel.find({ _id: recipeId });
+
+        if(recipe.length === 0) {
             return res.status(401).send({
                 message: 'Receta no encontrada'
             });
         }
-        const thisUser = await userModel.findOne({
-            where: {
-                _id: userId
-            }
-        });
+        const thisUser = user[0];
 
         //check if user already has this recipe in favorites
         const recipeAlreadyInFavorites = thisUser.myFavorites.filter(fav => {
-            console.log("tu", thisUser)
-            const favId = fav.toString();
-            return favId === recipeId});
-        console.log(recipeAlreadyInFavorites);
+            console.log("fav: ", fav.toString());
+            console.log("recipeId: ", recipeId);
+            return fav.toString() === recipeId;
+        });
+
         if(recipeAlreadyInFavorites.length > 0) {
-            return res.status(400).send({
-                message: 'Receta ya esta en favoritos'
+            return res.status(401).send({
+                message: 'Receta ya está en favoritos'
             });
         }
-        //add recipe to user's favorites
-        thisUser.myFavorites.push(recipe);
+
+        //add recipe to favorites
+        thisUser.myFavorites.push(recipeId);
         await thisUser.save();
-        res.status(200).send({
-            message: 'Receta agregada a favoritos'
-        });
+        res.json({message: 'Receta agregada a favoritos'});
+
     }
     catch(err){
         console.log("Error: ", err);

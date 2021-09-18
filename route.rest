@@ -69,12 +69,12 @@ Content-Type: application/json
 }
 
 ###
-POST https://polar-reaches-30197.herokuapp.com/user/login
+POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
-    "email": "santiago.d.calvo@gmail.com",
-    "password": "12345678"
+    "email": "loli@gmail.com",
+    "password": "loli"
 }
 
 ###
@@ -121,13 +121,13 @@ x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4MTFkZWVhYTQ
 
 ###
 
-POST http://polar-reaches-30197.herokuapp.com/user/addToFavs
+POST http://localhost:5000/user/addToFavs
 Content-Type: application/json
 x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4MTFkZWVhYTQwODAzMjIyOTAxZiIsImlhdCI6MTYzMTY4OTMwMywiZXhwIjoxNjMxNzc1NzAzfQ.zYvdpjTq4wJrul5dPEKP43Hrd35JsJYjpNWhfLcj4BQ
 
 {
-    "recipeId": "61381c56900dc801dc66035d",
-    "userId": "6141811deeaa40803222901f"
+    "recipeId": "614662b4b2f96f26429aae97",
+    "userId": "614669e60fab352db951c448"
 }
 
 ###
