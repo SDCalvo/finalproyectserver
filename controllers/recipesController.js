@@ -51,9 +51,15 @@ async function getRecipesBySearch(req, res) {
 
 async function createRecipe(req, res) {
         console.log(req.body);
+
+        if(!req.body.title || !req.body.ingredients || !req.body.category || !req.body.tags || !req.body.time || !req.body.steps || !req.body.user){
+            return res.status(400).json({message: 'Por favor llenar todos los campos obligatorios, los campos obligatorios son: title, ingredients, category, tags, time, steps, user'});
+        }
+
         const rcp = new recipe({
             
             title: req.body.title,
+            user: req.body.user,
             img: req.body.img,
             otherImgs: req.body.otherImgs,
             ingredients: req.body.ingredients,
