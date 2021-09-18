@@ -3,6 +3,9 @@ const router = express.Router();
 const userCtrl = require('../controllers/userController.js');
 const auth = require('../middlewares/middlewares');
 
+//get all users
+router.get('/', auth.authenticateToken, userCtrl.getUsers);
+
 // create user
 router.post('/', userCtrl.createUser);
 

@@ -1,18 +1,19 @@
 
-POST http://localhost:5000/recipes
+POST https://polar-reaches-30197.herokuapp.com/recipes
 Content-Type: application/json
 
 {
-    "title": "recipe 6",
-    "img": "img",
+    "title": "recipe 1",
+    "img": "img22",
+    "user": "6141811deeaa40803222901f",
     "ingredients": [ "ingredient 2", "ingredient 4" ],
     "category": "Con carne",
-    "time":"20 minutos",
+    "time":"15 minutos",
     "likes": 12,
     "steps": [ "step 1", "step 2" ],
     "timeFridge": "20 minutos",
     "timeFreezer": "20 minutos",
-    "tags": [ "tag 3", "tag 2" ]
+    "tags": [ "tag 1", "tag 2" ]
 }
 
 ###
@@ -131,11 +132,16 @@ x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4MTFkZWVhYTQ
 
 ###
 
-POST http://polar-reaches-30197.herokuapp.com/user/like
+POST http://localhost:5000/user/like
 Content-Type: application/json
 x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4MTFkZWVhYTQwODAzMjIyOTAxZiIsImlhdCI6MTYzMTY4OTMwMywiZXhwIjoxNjMxNzc1NzAzfQ.zYvdpjTq4wJrul5dPEKP43Hrd35JsJYjpNWhfLcj4BQ
 
 {
-    "recipeId": "61381c56900dc801dc66035d",
-    "userId": "6141811deeaa40803222901f"
+    "recipeId": "614658830b81b06b92a7aa94",
+    "userId": "61422ef3257c69006799ed27"
 }
+
+###
+GET http://localhost:5000/user
+Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4MTFkZWVhYTQwODAzMjIyOTAxZiIsImlhdCI6MTYzMTY4OTMwMywiZXhwIjoxNjMxNzc1NzAzfQ.zYvdpjTq4wJrul5dPEKP43Hrd35JsJYjpNWhfLcj4BQ

@@ -3,6 +3,15 @@ const recipeModel = require('../models/recipesModel.js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+//get all users
+async function getUsers(req, res){
+    try{
+        const users = await userModel.find();
+        res.json(users);
+    }catch(err){
+        res.json({message: err});
+    }
+}
 
 //create a user 
 async function createUser(req, res) {
@@ -132,6 +141,7 @@ async function login(req, res){
 async function addRecipeToFavorites(req, res){
     
     const {recipeId, userId} = req.body;
+
     if(!recipeId) {
         return res.status(400).send({
             message: 'El ID de la receta es requerido'
@@ -197,7 +207,7 @@ async function addRecipeToFavorites(req, res){
 async function likeRecipe(req, res){
 
     const {recipeId, userId} = req.body;
-    
+    console.log("userID", userId);
     if(!recipeId) {
         return res.status(400).send({
             message: 'El ID de la receta es requerido'
@@ -209,21 +219,14 @@ async function likeRecipe(req, res){
         });
     }
     try{
-        const recipe = await recipeModel.findOne({
-            where: {
-                _id: recipeId
-            }
-        });
+        const recipe = await recipeModel.findById(recipeId);
         if(!recipe) {
             return res.status(401).send({
                 message: 'Receta no encontrada'
             });
         }
-        const user = await userModel.findOne({
-            where: {
-                _id: userId
-            }
-        });
+        const user = await userModel.findById(userId);
+        console.log("user", user);
         if(!user) {
             return res.status(401).send({
                 message: 'Usuario no encontrado'
@@ -231,7 +234,10 @@ async function likeRecipe(req, res){
         }
         //check if user has liked this recipe already
         const userAlreadyLikedRecipe = recipe.usersLikes.filter(like => {
+            
             const likeId = like.toString();
+            console.log("likeId", likeId);
+            console.log("userId", userId);
             return likeId === userId}
         );
         //if user has liked this recipe already, take one like from he recipe
@@ -245,7 +251,7 @@ async function likeRecipe(req, res){
         //if user has not liked this recipe already, give it one like
         else {
             recipe.likes++;
-            recipe.usersLikes.push(user);
+            recipe.usersLikes.push(user._id);
         }
         await recipe.save();
         res.status(200).send({
@@ -259,7 +265,7 @@ async function likeRecipe(req, res){
 }
 
 
-
+exports.getUsers = getUsers;
 exports.createUser = createUser;
 exports.login = login;
 exports.addRecipeToFavorites = addRecipeToFavorites;
