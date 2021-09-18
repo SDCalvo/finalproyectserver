@@ -36,6 +36,10 @@ const recipeSchema = new mongoose.Schema({
         type: Number,
         default: 0 
     },
+    usersLikes: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'User'
+    },
     steps: {
         type: Array,
         required: true

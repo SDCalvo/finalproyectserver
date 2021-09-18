@@ -193,8 +193,75 @@ async function addRecipeToFavorites(req, res){
     }
 }
 
+//give a recipe a like
+async function likeRecipe(req, res){
+
+    const {recipeId, userId} = req.body;
+    
+    if(!recipeId) {
+        return res.status(400).send({
+            message: 'El ID de la receta es requerido'
+        });
+    }
+    if(!userId) {
+        return res.status(400).send({
+            message: 'El ID del usuario es requerido'
+        });
+    }
+    try{
+        const recipe = await recipeModel.findOne({
+            where: {
+                _id: recipeId
+            }
+        });
+        if(!recipe) {
+            return res.status(401).send({
+                message: 'Receta no encontrada'
+            });
+        }
+        const user = await userModel.findOne({
+            where: {
+                _id: userId
+            }
+        });
+        if(!user) {
+            return res.status(401).send({
+                message: 'Usuario no encontrado'
+            });
+        }
+        //check if user has liked this recipe already
+        const userAlreadyLikedRecipe = recipe.usersLikes.filter(like => {
+            const likeId = like.toString();
+            return likeId === userId}
+        );
+        //if user has liked this recipe already, take one like from he recipe
+        if(userAlreadyLikedRecipe.length > 0) {
+            recipe.likes--;
+            recipe.usersLikes = recipe.usersLikes.filter(like => {
+                const likeId = like.toString();
+                return likeId !== userId}
+            );
+        }
+        //if user has not liked this recipe already, give it one like
+        else {
+            recipe.likes++;
+            recipe.usersLikes.push(user);
+        }
+        await recipe.save();
+        res.status(200).send({
+            message: 'Receta actualizada'
+        });
+    }
+    catch(err){
+        console.log("Error: ", err);
+        res.status(500).send(err);
+    }
+}
+
+
 
 exports.createUser = createUser;
 exports.login = login;
 exports.addRecipeToFavorites = addRecipeToFavorites;
+exports.likeRecipe = likeRecipe;
 

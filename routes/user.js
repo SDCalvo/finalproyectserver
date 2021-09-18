@@ -12,4 +12,7 @@ router.post('/login', userCtrl.login);
 //add recipe to favorites
 router.post('/addToFavs', auth.authenticateToken, userCtrl.addRecipeToFavorites);
 
+//like recipe
+router.post('/like', auth.authenticateToken, userCtrl.likeRecipe);
+
 module.exports = router;
