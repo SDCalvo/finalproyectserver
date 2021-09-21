@@ -10,6 +10,10 @@ const recipeSchema = new mongoose.Schema({
     img:{
         type: String,
     },
+    accepted:{
+        type: Boolean,
+        default: false
+    },
     otherImgs:{
         type: Array,
     },
@@ -21,7 +25,7 @@ const recipeSchema = new mongoose.Schema({
         type: String,
         required: true,
         enum: {
-            values: ['Con carne', 'Veggies', 'Postres']
+            values: ['Con carne', 'Veggies', 'Dulces']
         }
     },
     tags: {

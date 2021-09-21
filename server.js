@@ -25,6 +25,9 @@ app.use('/user', userRouter);
 const notesRouter = require('./routes/notes.js');
 app.use('/notes', notesRouter);
 
+const commentsRouter = require('./routes/comments.js');
+app.use('/comments', commentsRouter);
+
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Server listening on port ${process.env.PORT || 3000}`);
 });

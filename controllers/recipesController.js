@@ -89,6 +89,7 @@ async function updateRecipe(req, res) {
         rcp.ingredients = req.body.ingredients;
         rcp.category = req.body.category;
         rcp.tags = req.body.tags;
+        rcp.accepted = req.body.accepted;
         rcp.time = req.body.time;
         rcp.likes = req.body.likes;
         rcp.steps = req.body.steps;
