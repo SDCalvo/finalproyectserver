@@ -11,8 +11,9 @@ const recipeSchema = new mongoose.Schema({
         type: String,
     },
     accepted:{
-        type: Boolean,
-        default: false
+        type: String,
+        enum: ['accepted', 'rejected', 'pending'],
+        default: 'pending'
     },
     otherImgs:{
         type: Array,
@@ -72,6 +73,7 @@ recipeSchema.index({
     timeFreezer: 'text',
     tags: 'text',
     category: 'text',
+    accepted: 'text',
 });
 
 

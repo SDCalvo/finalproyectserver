@@ -1,5 +1,5 @@
 
-POST https://polar-reaches-30197.herokuapp.com/recipes
+POST http://localhost:5000/recipes
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:5000/recipes
+GET https://polar-reaches-30197.herokuapp.com/recipes
 
 ###
 
@@ -34,7 +34,7 @@ PATCH https://polar-reaches-30197.herokuapp.com/recipes/61381d6d900dc801dc660361
 Content-Type: application/json
 
 {
-    "title": "recipe 33",
+    "title": "recipe 111",
     "img": "img22",
     "user": "6141811deeaa40803222901f",
     "ingredients": [ "ingredient 2", "ingredient 4" ],
@@ -53,7 +53,15 @@ GET http://localhost:5000/recipes/search?search=tag+1&searh=tag+2&field=tags
 
 ###
 
-GET http://localhost:5000/tags
+GET https://polar-reaches-30197.herokuapp.com/user/61422ef3257c69006799ed27
+Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4MTFkZWVhYTQwODAzMjIyOTAxZiIsImlhdCI6MTYzMTY4OTMwMywiZXhwIjoxNjMxNzc1NzAzfQ.zYvdpjTq4wJrul5dPEKP43Hrd35JsJYjpNWhfLcj4BQ
+
+###
+GET http://localhost:5000/user/61422ef3257c69006799ed27
+Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4MTFkZWVhYTQwODAzMjIyOTAxZiIsImlhdCI6MTYzMTY4OTMwMywiZXhwIjoxNjMxNzc1NzAzfQ.zYvdpjTq4wJrul5dPEKP43Hrd35JsJYjpNWhfLcj4BQ
+
 
 ###
 
@@ -175,7 +183,7 @@ Content-Type: application/json
 x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4MTFkZWVhYTQwODAzMjIyOTAxZiIsImlhdCI6MTYzMTY4OTMwMywiZXhwIjoxNjMxNzc1NzAzfQ.zYvdpjTq4wJrul5dPEKP43Hrd35JsJYjpNWhfLcj4BQ
 
 ###
-PATCH http://localhost:5000/comments/614a6475066dc80499656b79
+PATCH http://localhost:5000/comments/614a65bc3aae745920de5558
 Content-Type: application/json
 x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4MTFkZWVhYTQwODAzMjIyOTAxZiIsImlhdCI6MTYzMTY4OTMwMywiZXhwIjoxNjMxNzc1NzAzfQ.zYvdpjTq4wJrul5dPEKP43Hrd35JsJYjpNWhfLcj4BQ
 
