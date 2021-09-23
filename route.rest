@@ -3,7 +3,7 @@ POST http://localhost:5000/recipes
 Content-Type: application/json
 
 {
-    "title": "recipe 5",
+    "title": "recipe 6",
     "img": "img112",
     "user": "6141811deeaa40803222901f",
     "ingredients": [ "ingredient 1", "ingredient 3", "ingredient 4" ],
@@ -30,11 +30,12 @@ DELETE http://localhost:5000/recipes/61381c56900dc801dc66035d
 
 ###
 
-PATCH https://polar-reaches-30197.herokuapp.com/recipes/61381d6d900dc801dc660361
+PATCH https://polar-reaches-30197.herokuapp.com/recipes/614cf78336a60a190537def6
 Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzI0MzQxMDQsImV4cCI6MTYzMjUyMDUwNH0.bI25KNblg-_vs9wOjvCYsd0tn-77xasnrFM7YldtHTg
 
 {
-    "title": "recipe 111",
+    "title": "recipe 112",
     "img": "img22",
     "user": "6141811deeaa40803222901f",
     "ingredients": [ "ingredient 2", "ingredient 4" ],
@@ -99,7 +100,7 @@ x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4MTFkZWVhYTQ
 
 ###
 
-PATCH https://polar-reaches-30197.herokuapp.com/notes/6142373890e59ec0c14612f0
+PATCH https://polar-reaches-30197.herokuapp.com/recipes/6142373890e59ec0c14612f0
 Content-Type: application/json
 x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4MTFkZWVhYTQwODAzMjIyOTAxZiIsImlhdCI6MTYzMTY4OTMwMywiZXhwIjoxNjMxNzc1NzAzfQ.zYvdpjTq4wJrul5dPEKP43Hrd35JsJYjpNWhfLcj4BQ
 
@@ -150,7 +151,7 @@ x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4MTFkZWVhYTQ
 }
 
 ###
-GET http://localhost:5000/user
+GET https://polar-reaches-30197.herokuapp.com/user
 Content-Type: application/json
 x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4MTFkZWVhYTQwODAzMjIyOTAxZiIsImlhdCI6MTYzMTY4OTMwMywiZXhwIjoxNjMxNzc1NzAzfQ.zYvdpjTq4wJrul5dPEKP43Hrd35JsJYjpNWhfLcj4BQ
 

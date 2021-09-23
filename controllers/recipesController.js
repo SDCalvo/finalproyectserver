@@ -97,6 +97,7 @@ async function updateRecipe(req, res) {
         rcp.timeFreezer = req.body.timeFreezer;
         rcp.timeFridge = req.body.timeFridge;
         console.log(rcp);
+
         try{
             const newRecipe = await rcp.save();
             res.status(201).json(newRecipe);

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const recipe = require('../models/recipesModel.js');
 const recipeCtrl = require('../controllers/recipesController.js');
+const auth = require('../middlewares/middlewares');
 
 //Getting all the data from the database
 router.get('/', recipeCtrl.getAllRecipe);
@@ -18,10 +19,10 @@ router.get('/:id', getRecipe, recipeCtrl.getOneRecipe);
 router.post('/', recipeCtrl.createRecipe);
 
 //Updating an existing element in the database
-router.patch('/:id', getRecipe, recipeCtrl.updateRecipe);
+router.patch('/:id', auth.authenticateToken, getRecipe, recipeCtrl.updateRecipe);
 
 //Deleting an existing element in the database
-router.delete('/:id', getRecipe, recipeCtrl.deleteRecipe);
+router.delete('/:id', auth.authenticateToken, getRecipe, recipeCtrl.deleteRecipe);
 
 //Middleware for getting the id of a recipe
 async function getRecipe(req, res, next) {
