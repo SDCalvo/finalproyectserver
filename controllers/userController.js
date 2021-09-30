@@ -20,6 +20,8 @@ async function getUserByEmail(req, res){
         if(user.length === 0) {
             return res.status(404).json({message: 'Usuario no encontrado.'});
         }
+        delete user.password;
+        
         res.json(user);
     }catch(err){
         res.json({message: err});
