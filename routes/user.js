@@ -6,8 +6,8 @@ const auth = require('../middlewares/middlewares');
 //get all users
 router.get('/', auth.authenticateToken, userCtrl.getUsers);
 
-//get user by id
-router.get('/:id', auth.authenticateToken, userCtrl.getUserById);
+//get user by email
+router.get('/:email', auth.authenticateToken, userCtrl.getUserByEmail);
 
 //delete user by id
 router.delete('/:id', auth.authenticateToken, userCtrl.deleteUser);

@@ -14,11 +14,11 @@ async function getUsers(req, res){
 }
 
 //get user by id
-async function getUserById(req, res){
+async function getUserByEmail(req, res){
     try{
-        const user = await userModel.findById(req.params.id);
-        if(!user) {
-            res.json({message: 'Usuario no encontrado'});
+        const user = await userModel.find({ email: req.params.email });
+        if(user.length === 0) {
+            return res.status(404).json({message: 'Usuario no encontrado.'});
         }
         res.json(user);
     }catch(err){
@@ -274,7 +274,7 @@ async function likeRecipe(req, res){
 
 
 exports.getUsers = getUsers;
-exports.getUserById = getUserById;
+exports.getUserByEmail = getUserByEmail;
 exports.deleteUser = deleteUser;
 exports.createUser = createUser;
 exports.login = login;
