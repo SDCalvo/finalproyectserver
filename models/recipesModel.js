@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Tags = require('../models/tagsModel');
 
 const recipeSchema = new mongoose.Schema({
 
@@ -30,8 +31,9 @@ const recipeSchema = new mongoose.Schema({
         }
     },
     tags: {
-        type: Array,
-        required: true,
+        type: [mongoose.Types.ObjectId],
+        ref: 'Tags',
+        required: true
     },
     time: {
         type: String,

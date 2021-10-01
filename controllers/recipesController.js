@@ -1,9 +1,11 @@
+const mongoose = require('mongoose');
 const recipe = require('../models/recipesModel.js');
+const tags = require('../models/tagsModel.js');
     
 async function getAllRecipe(req, res) {
     
     try{
-        const recipes = await recipe.find();
+        const recipes = await recipe.find().populate('tags', 'name');
         res.json(recipes);
     }catch(err){
         res.status(500).json({message: err.message});
@@ -12,7 +14,14 @@ async function getAllRecipe(req, res) {
 }
 
 async function getOneRecipe(req, res) {
-        res.json(res.recipe); 
+
+        const rcp = res.recipe;
+        try{
+            const foundRecipe = await recipe.findById(rcp).populate('tags', 'name');
+            res.json(foundRecipe);
+        }catch(err){
+            res.status(500).json({message: err.message});
+        }
 }
 
 async function getRecipesBySearch(req, res) {
@@ -49,6 +58,21 @@ async function getRecipesBySearch(req, res) {
     }
 }
 
+async function getRecipesByTags(req, res) {
+    
+    //get the tags from the url
+    const tags = req.query.tags;
+    //split the tags into an array
+    const tagsArray = tags.split(',');
+    //find the recipes with the tags
+    try{
+        const recipes = await recipe.find({tags: {$in: tagsArray}});
+        res.json(recipes);
+    }catch(err){
+        res.status(500).json({message: err.message});
+    }
+}
+
 async function createRecipe(req, res) {
         
 
@@ -56,6 +80,20 @@ async function createRecipe(req, res) {
             return res.status(400).json({message: 'Por favor llenar todos los campos obligatorios, los campos obligatorios son: title, ingredients, category, tags, time, steps, user'});
         }
 
+        //find tags 
+        let tagsArray = [];
+        for(let i=0; i<req.body.tags.length; i++){
+            const tag = await tags.findOne({name: req.body.tags[i]});
+            if(tag){
+                console.log("tag", tag);
+                tagsArray.push(tag._id);
+            }else{
+                res.status(400).json({message: `El tag ${req.body.tags[i]} no existe`});
+            }
+        }
+
+
+        
         const rcp = new recipe({
             
             title: req.body.title,
@@ -64,7 +102,7 @@ async function createRecipe(req, res) {
             otherImgs: req.body.otherImgs,
             ingredients: req.body.ingredients,
             category: req.body.category,
-            tags: req.body.tags,
+            tags: tagsArray[0],	
             time: req.body.time,
             likes: req.body.likes,
             steps: req.body.steps,
@@ -74,7 +112,12 @@ async function createRecipe(req, res) {
         });
         try{
             const newRecipe = await rcp.save();
-            res.status(201).json(newRecipe);
+            //loop through the tags array and add the all tags to the recipe
+            for(let i=1; i<tagsArray.length; i++){
+                await recipe.updateOne({_id: newRecipe._id}, {$push: {tags: tagsArray[i]}});
+            }
+            const response = await recipe.findById(newRecipe._id);
+            res.status(201).json(response);
         } catch(err){
             res.status(400).json({message: err.message});
         }    
@@ -88,7 +131,6 @@ async function updateRecipe(req, res) {
         rcp.otherImgs = req.body.otherImgs;
         rcp.ingredients = req.body.ingredients;
         rcp.category = req.body.category;
-        rcp.tags = req.body.tags;
         rcp.accepted = req.body.accepted;
         rcp.time = req.body.time;
         rcp.likes = req.body.likes;
@@ -96,12 +138,27 @@ async function updateRecipe(req, res) {
         rcp.user = req.body.user;
         rcp.timeFreezer = req.body.timeFreezer;
         rcp.timeFridge = req.body.timeFridge;
-        console.log(rcp);
 
+        //get tags from the request
+        let tagsArray = [];
+        for(let i=0; i<req.body.tags.length; i++){
+            const tag = await tags.findOne({name: req.body.tags[i]});
+            if(tag){
+                tagsArray.push({
+                    _id: tag._id,
+                    name: tag.name
+                });
+            }else{
+                res.status(400).json({message: `El tag ${req.body.tags[i]} no existe`});
+            }
+        }
+        rcp.tags = tagsArray;
+        console.log("tagsArray", tagsArray);
         try{
-            const newRecipe = await rcp.save();
-            res.status(201).json(newRecipe);
+            const updatedRecipe = await recipe.findOneAndUpdate({_id: rcp._id}, rcp, {new: true});
+            res.json(updatedRecipe);
         } catch(err){
+            console.log("error: ", err);
             res.status(400).json({message: err.message});
     }    
 }
@@ -121,3 +178,4 @@ exports.createRecipe = createRecipe;
 exports.updateRecipe = updateRecipe;
 exports.deleteRecipe = deleteRecipe;
 exports.getRecipesBySearch = getRecipesBySearch;
+exports.getRecipesByTags = getRecipesByTags;
