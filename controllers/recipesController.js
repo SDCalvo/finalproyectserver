@@ -42,7 +42,7 @@ async function getRecipesBySearch(req, res) {
             }
             const recipes = await recipe.find({$text: {$search: search}});
             res.json(recipes);
-        }else{
+        } else{
             //search for all the values in the field provided
             if(!Array.isArray(search)){
                 search = [search];
@@ -58,21 +58,6 @@ async function getRecipesBySearch(req, res) {
     }
 }
 
-async function getRecipesByTags(req, res) {
-    
-    //get the tags from the url
-    const tags = req.query.tags;
-    //split the tags into an array
-    const tagsArray = tags.split(',');
-    //find the recipes with the tags
-    try{
-        const recipes = await recipe.find({tags: {$in: tagsArray}});
-        res.json(recipes);
-    }catch(err){
-        res.status(500).json({message: err.message});
-    }
-}
-
 async function createRecipe(req, res) {
         
 
@@ -83,16 +68,20 @@ async function createRecipe(req, res) {
         //find tags 
         let tagsArray = [];
         for(let i=0; i<req.body.tags.length; i++){
+
             const tag = await tags.findOne({name: req.body.tags[i]});
             if(tag){
                 console.log("tag", tag);
-                tagsArray.push(tag._id);
+                //chack tagsArray dosen't have the tag
+                if(!tagsArray.includes(mongoose.Types.ObjectId(tag._id))){
+                    tagsArray.push(mongoose.Types.ObjectId(tag._id));
+                }
             }else{
                 res.status(400).json({message: `El tag ${req.body.tags[i]} no existe`});
             }
         }
 
-
+        console.log("tagsArray", tagsArray);
         
         const rcp = new recipe({
             
@@ -102,7 +91,7 @@ async function createRecipe(req, res) {
             otherImgs: req.body.otherImgs,
             ingredients: req.body.ingredients,
             category: req.body.category,
-            tags: tagsArray[0],	
+            tags: [...tagsArray],
             time: req.body.time,
             likes: req.body.likes,
             steps: req.body.steps,
@@ -112,12 +101,8 @@ async function createRecipe(req, res) {
         });
         try{
             const newRecipe = await rcp.save();
-            //loop through the tags array and add the all tags to the recipe
-            for(let i=1; i<tagsArray.length; i++){
-                await recipe.updateOne({_id: newRecipe._id}, {$push: {tags: tagsArray[i]}});
-            }
-            const response = await recipe.findById(newRecipe._id);
-            res.status(201).json(response);
+            
+            res.status(201).json(newRecipe);
         } catch(err){
             res.status(400).json({message: err.message});
         }    
@@ -144,10 +129,7 @@ async function updateRecipe(req, res) {
         for(let i=0; i<req.body.tags.length; i++){
             const tag = await tags.findOne({name: req.body.tags[i]});
             if(tag){
-                tagsArray.push({
-                    _id: tag._id,
-                    name: tag.name
-                });
+                tagsArray.push(mongoose.Types.ObjectId(tag._id));
             }else{
                 res.status(400).json({message: `El tag ${req.body.tags[i]} no existe`});
             }
@@ -161,6 +143,16 @@ async function updateRecipe(req, res) {
             console.log("error: ", err);
             res.status(400).json({message: err.message});
     }    
+}
+
+async function getRecipesByTags(req, res) {
+    try{
+        const tags = req.body.tags.map(tag => mongoose.Types.ObjectId(tag));
+        const recipes = await recipe.find({tags: {$in: tags}});
+        res.json(recipes);
+    }catch(err){
+        res.status(500).json({message: err.message});
+    }   
 }
 
 async function deleteRecipe(req, res) {
@@ -179,3 +171,4 @@ exports.updateRecipe = updateRecipe;
 exports.deleteRecipe = deleteRecipe;
 exports.getRecipesBySearch = getRecipesBySearch;
 exports.getRecipesByTags = getRecipesByTags;
+

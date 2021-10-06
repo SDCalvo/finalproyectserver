@@ -4,6 +4,7 @@ async function getAllTags(req, res) {
     
     try {
         const foundTags = await tags.find();
+        console.log(foundTags);
         res.status(200).json(foundTags);
     } catch (error) {
         res.status(500).json({

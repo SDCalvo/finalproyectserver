@@ -3,7 +3,7 @@ POST http://localhost:5000/recipes
 Content-Type: application/json
 
 {
-    "title": "recipe 3",
+    "title": "recipe 115",
     "img": "img112",
     "user": "6141811deeaa40803222901f",
     "ingredients": [ "ingredient 1", "ingredient 3", "ingredient 4" ],
@@ -13,7 +13,7 @@ Content-Type: application/json
     "steps": [ "step 1", "step 2", "step 3" ],
     "timeFridge": "2 dias",
     "timeFreezer": "5 dias",
-    "tags": [ "tag 1", "tag 2"]
+    "tags": ["tag 3"]
 }
 
 ###
@@ -38,8 +38,13 @@ x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzI0MzQxMDQsImV
 
 ###
 
-GET http://localhost:5000/recipes/tag?tag=1
+GET http://localhost:5000/recipes/tag
 Content-Type: application/json
+
+{
+    "tags": [ "6156543384a45d1b2344df51"]
+}
+
 
 
 ###
@@ -68,11 +73,12 @@ x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzI0MzQxMDQsImV
 
 ###
 
-GET http://localhost:5000/recipes/search?search=tag+1&searh=tag+2&field=tags
+GET http://localhost:5000/tags
+Content-Type: application/json
 
 ###
 
-GET https://polar-reaches-30197.herokuapp.com/user/61422ef3257c69006799ed27
+GET http://localhost:5000/tags
 Content-Type: application/json
 x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4MTFkZWVhYTQwODAzMjIyOTAxZiIsImlhdCI6MTYzMTY4OTMwMywiZXhwIjoxNjMxNzc1NzAzfQ.zYvdpjTq4wJrul5dPEKP43Hrd35JsJYjpNWhfLcj4BQ
 

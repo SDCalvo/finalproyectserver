@@ -7,6 +7,9 @@ const tags = mongoose.Schema({
     },
 }, { timestamps: true });
 
+//add text index
+tags.index({ name: 'text' });
+
 module.exports = mongoose.model('Tags', tags);
 
 

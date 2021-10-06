@@ -10,6 +10,9 @@ router.get('/', recipeCtrl.getAllRecipe);
 //Getting recipes from a search
 router.get('/search', recipeCtrl.getRecipesBySearch);
 
+//get recipe by tag
+router.get('/tag', recipeCtrl.getRecipesByTags);
+
 //Getting one element from the database
 router.get('/:id', getRecipe, recipeCtrl.getOneRecipe);
 
@@ -24,8 +27,6 @@ router.patch('/:id', auth.authenticateToken, getRecipe, recipeCtrl.updateRecipe)
 //Deleting an existing element in the database
 router.delete('/:id', auth.authenticateToken, getRecipe, recipeCtrl.deleteRecipe);
 
-//get recipe by tag
-router.get('/tag', recipeCtrl.getRecipesByTags);
 
 //Middleware for getting the id of a recipe
 async function getRecipe(req, res, next) {
