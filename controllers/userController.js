@@ -120,7 +120,7 @@ async function login(req, res){
     }
 
     try{
-        const user = await userModel.find({ email: email });
+        const user = await userModel.findOne({ email: email });
         console.log("user:: ", user);
         if(!user) {
             return res.status(401).send({
@@ -128,7 +128,7 @@ async function login(req, res){
             });
         }
         console.log("password: ", user.password);
-        const isValidPassword = await bcrypt.compare(password, user[0].password);
+        const isValidPassword = await bcrypt.compare(password, user.password);
 
         if(!isValidPassword) {
             return res.status(401).send({
@@ -147,7 +147,7 @@ async function login(req, res){
             ...user._doc,
             token: token
         };
-        
+        console.log(loggedUser);
         //delete password from user
         delete loggedUser.password;
 
