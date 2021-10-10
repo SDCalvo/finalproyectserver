@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const recipe = require('../models/recipesModel.js');
+const note = require('../models/notesModel.js');
 const tags = require('../models/tagsModel.js');
     
 async function getAllRecipe(req, res) {
@@ -17,7 +18,7 @@ async function getOneRecipe(req, res) {
 
         const rcp = res.recipe;
         try{
-            const foundRecipe = await recipe.findById(rcp).populate('tags', 'name');
+            const foundRecipe = await recipe.findById(rcp).populate('myFavorites', 'myRecipes', recipe);
             res.json(foundRecipe);
         }catch(err){
             res.status(500).json({message: err.message});

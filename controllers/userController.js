@@ -1,5 +1,7 @@
+const mongoose = require('mongoose');
 const userModel = require('../models/userModel.js');
 const recipeModel = require('../models/recipesModel.js');
+const notesModel = require('../models/notesModel.js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -16,7 +18,10 @@ async function getUsers(req, res){
 //get user by id
 async function getUserByEmail(req, res){
     try{
-        const user = await userModel.find({ email: req.params.email });
+        const user = await userModel.find({ email: req.params.email }).populate({ path: 'notes', model: notesModel })
+            .populate({ path: 'myRecipes', model: recipeModel })
+            .populate({ path: 'myFavorites', model: recipeModel })
+            .exec();
         if(user.length === 0) {
             return res.status(404).json({message: 'Usuario no encontrado.'});
         }
@@ -26,7 +31,8 @@ async function getUserByEmail(req, res){
 
         res.json(response);
     }catch(err){
-        res.json({message: err});
+        console.log(err);
+        res.status(500).json({message: err});
     }
 }
 

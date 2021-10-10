@@ -1,7 +1,10 @@
+GET http://localhost:5000/user/eugeniaariasfagalde22@gmail.com
+Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzI0MzQxMDQsImV4cCI6MTYzMjUyMDUwNH0.bI25KNblg-_vs9wOjvCYsd0tn-77xasnrFM7YldtHTg
 
+###
 POST http://localhost:5000/recipes
 Content-Type: application/json
-
 {
     "title": "recipe 115",
     "img": "img112",
