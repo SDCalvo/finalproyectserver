@@ -11,7 +11,7 @@ router.get('/', recipeCtrl.getAllRecipe);
 router.get('/search', recipeCtrl.getRecipesBySearch);
 
 //get recipe by tag
-router.get('/tag', recipeCtrl.getRecipesByTags);
+router.post('/tag', recipeCtrl.getRecipesByTags);
 
 //Getting one element from the database
 router.get('/:id', getRecipe, recipeCtrl.getOneRecipe);
