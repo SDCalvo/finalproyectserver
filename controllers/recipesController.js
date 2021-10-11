@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 const recipe = require('../models/recipesModel.js');
 const note = require('../models/notesModel.js');
-const tags = require('../models/tagsModel.js');
+const tagsModel = require('../models/tagsModel.js');
 const user = require('../models/userModel.js');
     
 async function getAllRecipe(req, res) {
     
     try{
-        const recipes = await recipe.find().populate({path: 'tags', model: tags}).populate({path: 'user', model: user}).populate({path: 'usersLikes', model: user}).exec();
+        const recipes = await recipe.find().populate({path: 'tags', model: tagsModel}).populate({path: 'user', model: user}).populate({path: 'usersLikes', model: user}).exec();
         res.json(recipes);
     }catch(err){
         res.status(500).json({message: err.message});
@@ -19,7 +19,7 @@ async function getOneRecipe(req, res) {
 
         const rcp = res.recipe;
         try{
-            const foundRecipe = await recipe.findById(rcp).populate({path: 'tags', model: tags}).populate({path: 'user', model: user}).populate({path: 'usersLikes', model: user}).exec();
+            const foundRecipe = await recipe.findById(rcp).populate({path: 'tags', model: tagsModel}).populate({path: 'user', model: user}).populate({path: 'usersLikes', model: user}).exec();
             res.json(foundRecipe);
         }catch(err){
             res.status(500).json({message: err.message});
@@ -42,7 +42,7 @@ async function getRecipesBySearch(req, res) {
             if(Array.isArray(search)){
                 search = search.join(' ');
             }
-            const recipes = await recipe.find({$text: {$search: search}}).populate({path: 'tags', model: tags}).populate({path: 'user', model: user}).populate({path: 'usersLikes', model: user}).exec();
+            const recipes = await recipe.find({$text: {$search: search}}).populate({path: 'tags', model: tagsModel}).populate({path: 'user', model: user}).populate({path: 'usersLikes', model: user}).exec();
             res.json(recipes);
         } else{
             //search for all the values in the field provided
@@ -155,7 +155,7 @@ async function updateRecipe(req, res) {
 async function getRecipesByTags(req, res) {
     try{
         const tags = req.body.tags.map(tag => mongoose.Types.ObjectId(tag));
-        const recipes = await recipe.find({tags: {$in: tags}}).populate({path: 'tags', model: tags}).populate({path: 'user', model: user}).populate({path: 'usersLikes', model: user}).exec();
+        const recipes = await recipe.find({tags: {$in: tags}}).populate({path: 'tags', model: tagsModel}).populate({path: 'user', model: user}).populate({path: 'usersLikes', model: user}).exec();
         res.json(recipes);
     }catch(err){
         res.status(500).json({message: err.message});
