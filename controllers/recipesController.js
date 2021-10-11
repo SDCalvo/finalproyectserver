@@ -71,7 +71,7 @@ async function createRecipe(req, res) {
         let tagsArray = [];
         for(let i=0; i<req.body.tags.length; i++){
 
-            const tag = await tags.findOne({name: req.body.tags[i]});
+            const tag = await tagsModel.findOne({name: req.body.tags[i]});
             if(tag){
                 console.log("tag", tag);
                 //chack tagsArray dosen't have the tag
@@ -134,7 +134,7 @@ async function updateRecipe(req, res) {
         //get tags from the request
             let tagsArray = [];
             for(let i=0; i<req.body.tags.length; i++){
-                const tag = await tags.findOne({name: req.body.tags[i]});
+                const tag = await tagsModel.findOne({name: req.body.tags[i]});
                 if(tag){
                     tagsArray.push(mongoose.Types.ObjectId(tag._id));
                 }else{
