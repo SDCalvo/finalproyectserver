@@ -18,7 +18,9 @@ async function getUsers(req, res){
 //get user by id
 async function getUserByEmail(req, res){
     try{
-        const user = await userModel.find({ email: req.params.email }).populate({ path: 'notes', model: notesModel })
+        console.log("req.params.id: ", req.params.id);
+        const user = await userModel.find({ email: req.params.email })
+            .populate({ path: 'notes', model: notesModel })
             .populate({ path: 'myRecipes', model: recipeModel })
             .populate({ path: 'myFavorites', model: recipeModel })
             .exec();

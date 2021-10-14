@@ -1,4 +1,8 @@
+POST  http://localhost:5000/recipes
+Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNjM4NDI2MGI0Nzc3YzVlYjA2OThiZiIsImlhdCI6MTYzNDIyMzM4OSwiZXhwIjoxNjM0MzA5Nzg5fQ.3yWkVZYfuZVoCIeZAJsgvuZqPbgzF1xmnxZXd5M7C5k
 
+###
 POST http://localhost:5000/recipes/tag
 Content-Type: application/json
 
