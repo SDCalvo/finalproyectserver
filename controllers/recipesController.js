@@ -104,9 +104,9 @@ async function createRecipe(req, res) {
         try{
             const newRecipe = await rcp.save();
             //save recipe in user
-            const user = await user.findById(req.body.user);
-            user.myRecipes.push(newRecipe);
-            await user.save();
+            const foundUser = await user.findById(req.body.user);
+            foundUser.myRecipes.push(newRecipe);
+            await foundUser.save();
             
             res.status(201).json(newRecipe);
         } catch(err){
