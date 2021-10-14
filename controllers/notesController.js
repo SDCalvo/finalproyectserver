@@ -29,8 +29,8 @@ async function createNote(req, res) {
         });
 
         try{
-            const thisUser = await userModel.findOne({username: req.body.user});
-            
+            const thisUser = await userModel.findOne({_id: req.body.user});
+            console.log("USER: ", thisUser);
             if(!thisUser){
                 res.status(404).json({message: 'User not found'});
                 return;
