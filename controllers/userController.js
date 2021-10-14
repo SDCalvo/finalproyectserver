@@ -214,7 +214,8 @@ async function addRecipeToFavorites(req, res){
         //add recipe to favorites
         thisUser.myFavorites.push(recipeId);
         await thisUser.save();
-        res.status(200).send(thisUser);
+        //respond with updated user
+        res.status(200).json(thisUser);
 
     }
     catch(err){
