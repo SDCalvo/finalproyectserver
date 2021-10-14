@@ -213,8 +213,8 @@ async function addRecipeToFavorites(req, res){
 
         //add recipe to favorites
         thisUser.myFavorites.push(recipeId);
-        const savedUser = await thisUser.save();
-        res.status(200).send(savedUser);
+        await thisUser.save();
+        res.status(200).send(thisUser);
 
     }
     catch(err){
